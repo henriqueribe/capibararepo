@@ -1,0 +1,82 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+  }
+  
+  header {
+    background-color: #003366;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  header a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .config-wrapper {
+    display: flex;
+    height: calc(100% - 60px); /* Altura do header */
+  }
+  
+  .nav-menu {
+    flex-basis: 200px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  
+  .nav-menu ul {
+    list-style: none;
+  }
+  
+  .nav-menu li a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .nav-menu li.active a, .nav-menu li a:hover {
+    background-color: #ddd;
+  }
+  
+  .config-content {
+    flex-grow: 1;
+    background-color: #e6e6e6;
+    padding: 20px;
+  }
+  
+  /* Estilos adicionais para formulários e botões serão inseridos aqui */
+  
+  .config-section {
+    margin-bottom: 20px;
+  }
+  
+  .config-section h2 {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  
+  input[type="text"] {
+    margin-top: 5px;
+    padding: 5px;
+    width: calc(100% - 10px); /* Ajuste para padding */
+    border: 1px solid #ccc;
+  }

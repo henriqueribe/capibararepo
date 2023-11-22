@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações</title>
+    <link rel="stylesheet" href="config.css">
+</head>
+<body>
+    <header>
+        <a href="#">Página inicial</a>
+        <h1>CONFIGURAÇÕES</h1>
+        <div class="user-info">
+            <span>Luis Bicalho</span>
+            <a href="#">Sair-></a>
+        </div>
+    </header>
+
+    <div class="config-wrapper">
+        <aside class="nav-menu">
+            <ul>
+                <li class="active"><a href="#">DISPOSITIVO</a></li>
+                <li><a href="#">TURMAS</a></li>
+                <li><a href="#">PRIVACIDADE E SEGURANÇA</a></li>
+                <li><a href="#">APARÊNCIA</a></li>
+                <li><a href="#">IDIOMA</a></li>
+                <li><a href="#">LOG OUT--></a></li>
+            </ul>
+        </aside>
+
+        <section class="config-content">
+            <!-- Adicione esta parte dentro da tag <section class="config-content"> -->
+<div class="config-section" id="dispositivo">
+    <h2>DISPOSITIVO</h2>
+    <form>
+        <!-- Repetir o padrão abaixo para cada opção de configuração -->
+        <label for="contar-pontualidade">CONTAR PONTUALIDADE</label>
+        <input type="checkbox" id="contar-pontualidade">
+        <input type="text" id="tempo-pontualidade" placeholder="Máximo de minutos de atraso permitidos">
+        <!-- Adicionar mais campos de formulário conforme necessário -->
+    </form>
+</div>
+
+        </section>
+    </div>
+</body>
+</html>
