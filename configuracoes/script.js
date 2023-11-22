@@ -1,7 +1,3 @@
-function redirecionarParaPagina(url) {
-    window.location.href = url;
-}
-
 function showSection(sectionId) {
     // Esconde todas as seções
     var sections = document.querySelectorAll('.config-section');

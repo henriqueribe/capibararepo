@@ -19,29 +19,48 @@
     <div class="config-wrapper">
         <aside class="nav-menu">
             <ul>
-                <li class="active"><a href="#">DISPOSITIVO</a></li>
-                <li><a href="#">TURMAS</a></li>
-                <li><a href="#">PRIVACIDADE E SEGURANÇA</a></li>
-                <li><a href="#">APARÊNCIA</a></li>
-                <li><a href="#">IDIOMA</a></li>
-                <li><a href="#">LOG OUT--></a></li>
+                <li onclick="showSection('dispositivo')"><a href="#">DISPOSITIVO</a></li>
+                <li onclick="showSection('turmas')"><a href="#">TURMAS</a></li>
+                <li onclick="showSection('privacidade')"><a href="#">PRIVACIDADE E SEGURANÇA</a></li>
+                <li onclick="showSection('aparencia')"><a href="#">APARÊNCIA</a></li>
+                <li onclick="showSection('idioma')"><a href="#">IDIOMA</a></li>
+                <li onclick="showSection('logout')"><a href="#">LOG OUT--></a></li>
             </ul>
         </aside>
 
         <section class="config-content">
-            <!-- Adicione esta parte dentro da tag <section class="config-content"> -->
-<div class="config-section" id="dispositivo">
-    <h2>DISPOSITIVO</h2>
-    <form>
-        <!-- Repetir o padrão abaixo para cada opção de configuração -->
-        <label for="contar-pontualidade">CONTAR PONTUALIDADE</label>
-        <input type="checkbox" id="contar-pontualidade">
-        <input type="text" id="tempo-pontualidade" placeholder="Máximo de minutos de atraso permitidos">
-        <!-- Adicionar mais campos de formulário conforme necessário -->
-    </form>
-</div>
-
+            <div id="dispositivo" class="config-section active">
+                <!-- Conteúdo da seção DISPOSITIVO -->
+                <p>Conteúdo da seção DISPOSITIVO...</p>
+            </div>
+        
+            <div id="turmas" class="config-section">
+                <!-- Conteúdo da seção TURMAS -->
+                <p>Conteúdo da seção TURMAS...</p>
+            </div>
+        
+            <div id="privacidade" class="config-section">
+                <!-- Conteúdo da seção PRIVACIDADE E SEGURANÇA -->
+                <p>Conteúdo da seção PRIVACIDADE E SEGURANÇA...</p>
+            </div>
+        
+            <div id="aparencia" class="config-section">
+                <!-- Conteúdo da seção APARÊNCIA -->
+                <p>Conteúdo da seção APARÊNCIA...</p>
+            </div>
+        
+            <div id="idioma" class="config-section">
+                <!-- Conteúdo da seção IDIOMA -->
+                <p>Conteúdo da seção IDIOMA...</p>
+            </div>
+        
+            <div id="logout" class="config-section">
+                <!-- Conteúdo da seção LOG OUT -->
+                <p>Conteúdo da seção LOG OUT...</p>
+            </div>
+        </div>
         </section>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -59,11 +59,16 @@
   
   .config-section {
     margin-bottom: 20px;
+    display: none;
   }
   
   .config-section h2 {
     margin-bottom: 15px;
   }
+
+  .config-section.active {
+    display: block;
+}
   
   label {
     display: block;
