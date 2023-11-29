@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <a href="C:\Users\User\Downloads\sprints\1129\capibararepo-main\index.html">Página inicial</a>
+        <a href="/index.html">Página inicial</a>
         <h1>CONFIGURAÇÕES</h1>
         <div class="user-info">
             <span>Luis Bicalho</span>
@@ -30,18 +30,55 @@
 
         <section class="config-content">
             <div id="dispositivo" class="config-section active">
-                <!-- Conteúdo da seção DISPOSITIVO -->
-                <p>Conteúdo da seção DISPOSITIVO...</p>
+                <form>
+                    <h2>PREFERÊNCIAS DO PROFESSOR:</h2>
+
+                    <h3>PRESENÇA</h3>
+                    <label for="presence">CONTAR PRESENÇA</label>
+                    <input type="checkbox" id="presence" name="presence"><br>
+                    <label for="presence">ATÉ QUE HORAS?</label>
+                    <input type="number" id="presence" name="presence" min="0"><br>
+                    <br>
+                    <h3>PONTUALIDADE</h3>
+                    <label for="ponctuality">CONTAR PONTUALIDADE</label>
+                    <input type="checkbox" id="ponctuality" name="ponctuality"><br>
+                    <label for="ponctuality">MINUTAGEM MÁXIMA DE ATRASO</label>
+                    <input type="number" id="ponctuality" name="ponctuality" min="0"><br>
+                    <br>
+                    <h3>PERMANÊNCIA</h3>
+                    <label for="stay">CONTAR PERMANÊNCIA</label>
+                    <input type="checkbox" id="stay" name="stay"><br>
+                    <label for="stay">MINUTAGEM MÍNIMA DE PRESENÇA</label>
+                    <input type="number" id="stay" name="stay" min="0"><br>
+                    <br>
+                    <input type="submit" value="Enviar">
+                </form>
             </div>
         
             <div id="turmas" class="config-section">
-                <!-- Conteúdo da seção TURMAS -->
-                <p>Conteúdo da seção TURMAS...</p>
+                <h2>ÁREA ESPECÍFICA PARA CADASTRO E REMOÇÃO DE TURMAS:</h2>
+                <div id="class-list">
+                    <div class="class-item">TURMA XX <button class="remove-button">remover turma</button></div><br>
+                    <div class="class-item">TURMA YY <button class="remove-button">remover turma</button></div><br>
+                    <div class="class-item">TURMA UU <button class="remove-button">remover turma</button></div><br>
+                    <div class="class-item">TURMA VV <button class="remove-button">remover turma</button></div><br>
+                    <div class="class-item">TURMA WW <button class="remove-button">remover turma</button></div><br>
+                    <div class="class-item">TURMA GG <button class="remove-button">remover turma</button></div><br>
+                </div>
+                <button id="add-button">ADICIONAR TURMA</button>
             </div>
         
             <div id="privacidade" class="config-section">
-                <!-- Conteúdo da seção PRIVACIDADE E SEGURANÇA -->
-                <p>Conteúdo da seção PRIVACIDADE E SEGURANÇA...</p>
+                <form>
+                    <h2>ÁREA ESPECÍFICA PARA ALTERAÇÃO DE SENHA, EMAIL:</h2>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email"><br>
+                    <button type="submit">ALTERAR EMAIL</button><br>
+                    <br><br>
+                    <label for="pwd">Senha:</label>
+                    <input type="password" id="pwd" name="pwd"><br>
+                    <button type="submit">ALTERAR SENHA</button>
+                </form>
             </div>
         
             <div id="aparencia" class="config-section">
@@ -50,13 +87,24 @@
             </div>
         
             <div id="idioma" class="config-section">
-                <!-- Conteúdo da seção IDIOMA -->
-                <p>Conteúdo da seção IDIOMA...</p>
+                <form>
+                    <h2>SELECIONAR SEU IDIOMA:</h2>
+                    <input type="radio" id="portuguese" name="language" value="portuguese">
+                    <label for="portuguese">PORTUGUÊS BR</label><br>
+                    <input type="radio" id="english" name="language" value="english">
+                    <label for="english">ENGLISH US</label><br>
+                    <input type="radio" id="french" name="language" value="french">
+                    <label for="french">FRANÇAIS FR</label><br>
+                    <input type="radio" id="spanish" name="language" value="spanish">
+                    <label for="spanish">ESPAÑOL ES</label><br>
+                    <input type="radio" id="german" name="language" value="german">
+                    <label for="german">DEUTSCH DE</label><br>
+                    <input type="submit" value="Enviar">
+                </form>
             </div>
         
             <div id="logout" class="config-section">
-                <!-- Conteúdo da seção LOG OUT -->
-                <p>Conteúdo da seção LOG OUT...</p>
+                <button id="logout">FAZER LOGOUT</button>
             </div>
         </div>
         </section>
