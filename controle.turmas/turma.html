@@ -111,6 +111,16 @@
     .lista-alunos.expanded {
       max-height: 500px;
     }
+    #botaoLancarFaltas {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background-color: #007ACC;
+  color: white;
+  padding: 10px 0;
+  margin-top: 10px;
+  text-decoration: none;
+}
   </style>
 </head>
 
@@ -147,9 +157,10 @@
       </div>
     </main>
     <footer>
-      <a href="#" class="nav-btn"><<</a>
-      <a href="#" class="nav-btn">>></a>
+      <a href="#" class="nav-btn" id="botaoLancarFaltas">Lançar Faltas</a>
+      <br>
     </footer>
+    
   </div>
   <script>
     function getQueryParams() {
@@ -232,6 +243,12 @@
         botao.textContent = 'Ver menos';
       }
     }
+    document.getElementById('botaoLancarFaltas').addEventListener('click', function() {
+    fetch('http://127.0.0.1:5000/lancar_faltas')
+      .then(response => response.json())
+      .then(data => alert(data.message))
+      .catch(error => console.error('Erro:', error));
+  });
   </script>
 </body>
 
