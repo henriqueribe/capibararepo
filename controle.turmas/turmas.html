@@ -14,8 +14,8 @@
     <h1>CONTROLE DE TURMA</h1>
     <nav>
       <ul>
-        <li>Luis Bicalho</li>
-        <li><a href="#">Sair-></a></li>
+        <li id="nome_prof"></li>
+        <li><a href=" #">Sair-></a></li>
       </ul>
     </nav>
   </header>
@@ -31,43 +31,66 @@
 
   <script>
     // id que eu vo salva em cache de alguma forma que so deus sabe
-    const professorId = '6567a51d5ac82e973ea8bff3';
+    const professorId = '657048139504f8f05b3a3e35';
 
     function fetchTurmas() {
-      // link pro servidor real quando o daniel largar de ser otario (melhorar da dengue
-      fetch(`http://localhost:4000/api/professor/${professorId}`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`Erro HTTP! status: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then(professor => {
-          const turmasContainer = document.querySelector('.turmas-container');
-          const turmas = professor.turmas
-          turmasContainer.innerHTML = ''; // limpa qq coisa que esteja por ai i hope
-          turmas.forEach(turma_id => {
+  //  link pro servidor real quando o daniel largar de ser otario (melhorar da dengue 
+  fetch(`http://localhost:4000/api/professor/${professorId}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Erro HTTP! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(professor => {
+      document.getElementById("nome_prof").innerHTML = professor.nome;
+      const turmasContainer = document.querySelector('.turmas-container');
+      const turmas = professor.turmas;
+      
+      const fetchTurmaPromises = turmas.map(turma_id =>
+        fetch(`http://localhost:4000/api/turma/${turma_id}`)
+          .then(response => response.json())
+      );
+
+      Promise.all(fetchTurmaPromises)
+        .then(turmasData => {
+          turmasData.sort((a, b) => {
+            const codigoA = a.codigo.toUpperCase();
+            const codigoB = b.codigo.toUpperCase();
+            const turmaA = a.turma.toUpperCase();
+            const turmaB = b.turma.toUpperCase();
+
+            if (codigoA !== codigoB) {
+              return codigoA.localeCompare(codigoB);
+            } else {
+              return turmaA.localeCompare(turmaB);
+            }
+          });
+
+          turmasData.forEach(turma => {
             const turmaDiv = document.createElement('div');
-            fetch(`http://localhost:4000/api/turma/${turma_id}`)
-              .then((response) => {
-                return response.json()
-              })
-              .then((data) => {
-                const turma = data
-                console.log(turma)
-                turmaDiv.className = 'turma';
-                turmaDiv.innerHTML = `
-                <h3>TURMA ${turma.nome}</h3>
-                <p>SALA ${turma.sala}</p>
-              `;
-                turmasContainer.appendChild(turmaDiv);
-              })
+            turmaDiv.className = 'turma';
+            turmaDiv.innerHTML = `
+              <h3>${turma.codigo}/${turma.turma} - ${turma.nome} </h3>
+              <p>SALA ${turma.sala}</p>
+            `;
+            turmasContainer.appendChild(turmaDiv);
+
+            const turmaButton = document.createElement('a');
+            turmaButton.href = `turma.html?turmaId=${turma._id}`;
+            turmaButton.textContent = `Turma ${turma.nome}`;
+            turmaButton.className = 'turma-btn';
+            turmasContainer.appendChild(turmaButton);
           });
         })
         .catch(error => {
-          console.error('Erro ao buscar turmas:', error);
+          console.error('Erro ao buscar detalhes das turmas:', error);
         });
-    }
+    })
+    .catch(error => {
+      console.error('Erro ao buscar turmas:', error);
+    });
+}
 
     // carrega as turmas quando a pagina e carregada probably
     document.addEventListener('DOMContentLoaded', fetchTurmas);

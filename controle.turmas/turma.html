@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controle de Turma</title>
+  <style>
+    body,
+    h1,
+    h2,
+    p,
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      font-family: Arial, sans-serif;
+      color: white;
+      background-color: #003366;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    header,
+    .turma-info,
+    footer {
+      padding: 10px;
+      background: #0055A4;
+      margin-bottom: 10px;
+    }
+
+    .usuario {
+      text-align: right;
+      font-size: 0.9em;
+    }
+
+    .usuario span {
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2em;
+    }
+
+    nav .nav-btn,
+    footer .nav-btn {
+      text-decoration: none;
+      color: white;
+      background-color: #007ACC;
+      padding: 5px 10px;
+      margin: 2px;
+      display: inline-block;
+    }
+
+    nav {
+      text-align: center;
+    }
+
+    main {
+      background-color: #0066CC;
+      padding: 10px;
+    }
+
+    .turma-info h2 {
+      font-size: 1.2em;
+      margin-bottom: 5px;
+    }
+
+    .data {
+      background-color: #004C99;
+      padding: 10px;
+    }
+
+    .alunos ul {
+      list-style-type: none;
+      max-height: 150px;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .alunos ul.expanded {
+      max-height: 500px;
+    }
+
+    .alunos li {
+      background-color: #003366;
+      padding: 5px;
+      margin-bottom: 2px;
+    }
+
+    .ver-mais {
+      text-align: center;
+      padding: 5px;
+      background-color: #0055A4;
+      cursor: pointer;
+    }
+
+    .lista-alunos {
+      list-style-type: none;
+      max-height: 150px;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .lista-alunos.expanded {
+      max-height: 500px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>CONTROLE DE TURMA</h1>
+      <div class="profile-section" id="profile-info"> <span>SAIR</span></div>
+    </header>
+    <nav>
+      <a href="#" class="nav-btn">Página inicial</a>
+    </nav>
+    <main>
+      <div class="turma-info">
+        <h2>MATERIA: XXXXX TURMA: 33A</h2>
+        <div class="data">
+          <span id="dataAtual"></span>
+          <div class="alunos">
+            <p>Alunos presentes:</p>
+            <ul id="listaAlunosPresentes" class="lista-alunos">
+              <!-- alunos presentes presuntos bobocas vem pra ca MAYBE -->
+            </ul>
+            <p class="ver-mais" onclick="toggleList('listaAlunosPresentes')">Ver mais</p>
+          </div>
+          <div class="alunos">
+            <p>Alunos ausentes:</p>
+            <ul id="listaAlunosAusentes" class="lista-alunos">
+              <!-- alunos faltadores faltantes faltosos vem pra ca i hope -->
+            </ul>
+            <p class="ver-mais" onclick="toggleList('listaAlunosAusentes')">Ver mais</p>
+          </div>
+
+        </div>
+      </div>
+    </main>
+    <footer>
+      <a href="#" class="nav-btn"><<</a>
+      <a href="#" class="nav-btn">>></a>
+    </footer>
+  </div>
+  <script>
+    function getQueryParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        turmaId: params.get('turmaId')
+      };
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const { turmaId } = getQueryParams();
+      fetchAlunosDaTurma(turmaId);
+      fetchProfessorInfo();
+      fetch(`http://localhost:4000/api/turma/${turmaId}`)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('dataAula').textContent = data.aulas[0];
+        })
+        .catch(error => console.error('num teve aula registrada no sistema nesse dia nao seu viadinho! ', error));
+    });
+
+    function fetchAlunosDaTurma(turmaId) {
+      fetch(`http://localhost:4000/api/turma/${turmaId}`) // a cara da merda/2
+        .then(response => response.json())
+        .then((data) => {
+          const alunos = data.alunos
+          const materia = data.nome
+          const turma = data.turma
+          document.querySelector('.turma-info h2').textContent = `MATERIA: ${materia} TURMA: ${turma}`;
+          atualizarListasDeAlunos(alunos, data.aulas["06/12/2023"]) // AQUI É PRA MUDAR A DATA
+        })
+        .catch(error => console.error('Erro ao buscar alunos:', error));
+    }
+
+    function atualizarListasDeAlunos(alunos, alunosPresentes) {
+      const listaAlunosPresentes = document.getElementById('listaAlunosPresentes');
+      const listaAlunosAusentes = document.getElementById('listaAlunosAusentes');
+      listaAlunosPresentes.innerHTML = ''; // limpa limpa limpa
+      listaAlunosAusentes.innerHTML = ''; // limpa limpa limpa
+
+      alunos.forEach(alunoId => {
+        const item = document.createElement('li');
+        fetch(`http://localhost:4000/api/aluno/${alunoId}`)
+          .then(response => response.json())
+          .then((data) => {
+            item.textContent = data.nome; // serasi e nome mermo    
+            if (alunosPresentes.includes(alunoId)) { // isso aqui ta a cara da merda/3
+              listaAlunosPresentes.appendChild(item);
+            } else {
+              listaAlunosAusentes.appendChild(item);
+            }
+          })
+      });
+    }
+    // id que eu vo salva em cache de alguma forma que so deus sabe
+    const professorId = '657048139504f8f05b3a3e35';
+
+    function fetchProfessorInfo() {
+      // link pro servidor real quando o daniel largar de ser otario (melhorar da dengue
+      fetch(`http://localhost:4000/api/professor/${professorId}`)
+        .then(response => response.json())
+        .then(professor => {
+          const profileInfo = document.getElementById('profile-info');
+          profileInfo.innerHTML = `
+          <h2>${professor.nome}</h2>
+          `;
+        })
+        .catch(error => console.error('Erro ao buscar informações do professor:', error));
+    }
+
+    function toggleList(listId) {
+      var lista = document.getElementById(listId);
+      var botao = lista.nextElementSibling;
+
+      if (lista.classList.contains('expanded')) {
+        lista.classList.remove('expanded');
+        botao.textContent = 'Ver mais';
+      } else {
+        lista.classList.add('expanded');
+        botao.textContent = 'Ver menos';
+      }
+    }
+  </script>
+</body>
+
+</html>
